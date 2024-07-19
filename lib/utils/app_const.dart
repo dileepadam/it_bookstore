@@ -1,0 +1,3 @@
+
+
+const appName = "IT Bookstore";

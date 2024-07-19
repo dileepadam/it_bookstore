@@ -25,12 +25,34 @@ dev_dependencies:
   #flutter_bloc for state management
   flutter_bloc: ^8.1.4
 
+  #dependency injection tool
+  get_it: ^7.6.7
+
   #dio for rest api
   dio: ^5.4.1
   dio_http2_adapter: ^2.5.0
 
   #page transition for navigation
   page_transition: ^2.1.0
+
+  #simplify equal compression
+  equatable: ^2.0.5
+
+  #connectivity check
+  connectivity_plus: ^5.0.2
+
+  #help to functional programing patterns
+  fpdart: ^1.1.0
+
+  #to create simple animation
+  simple_animations: ^5.0.2
+
+  flutter_screenutil: ^5.9.3
+
+  flutter_riverpod: ^2.4.10
+
+  #PhosperIcons
+  phosphor_flutter: ^2.1.0
 
 flutter:
 
