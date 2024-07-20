@@ -26,4 +26,18 @@ class RepositoryImpl implements Repository {
       return Left(ConnectionFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, BaseResponse>> searchBooks(String bookName) async {
+    if (await networkInfo!.isConnected) {
+      try {
+        final parm = await remoteDataSource!.searchBooks(bookName);
+        return Right(parm);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.errorResponseModel));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
 }

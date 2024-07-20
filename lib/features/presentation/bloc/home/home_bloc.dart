@@ -8,14 +8,20 @@ import '../../../../core/network/network_info.dart';
 import '../../../../error/failures.dart';
 import '../../../../error/messages.dart';
 import '../../../domain/usecases/home/get_home_page_data.dart';
+import '../../../domain/usecases/home/search_books_home.dart';
 
 class HomePageBloc extends BaseBloc<HomeEvent, BaseState<HomeState>> {
   final NetworkInfo networkInfo;
   final GetHomePageData homePageDataUsecase;
+  final SearchHomePageData searchHomePageDataUseCase;
 
-  HomePageBloc({required this.networkInfo, required this.homePageDataUsecase})
+  HomePageBloc(
+      {required this.searchHomePageDataUseCase,
+      required this.networkInfo,
+      required this.homePageDataUsecase})
       : super(InitHomeState()) {
     on<GetHomeDataRequestEvent>(_handleGetHomeDataEvent);
+    on<SearchHomeDataRequestEvent>(_handleSearchHomeDataEvent);
   }
 
   Future<void> _handleGetHomeDataEvent(
@@ -35,6 +41,26 @@ class HomePageBloc extends BaseBloc<HomeEvent, BaseState<HomeState>> {
       }
     }, (r) {
       return GetHomeDataSuccessState(response: r);
+    }));
+  }
+
+  Future<void> _handleSearchHomeDataEvent(SearchHomeDataRequestEvent event,
+      Emitter<BaseState<HomeState>> emit) async {
+    final result = await searchHomePageDataUseCase(event.bookName!);
+
+    emit(result.fold((l) {
+      if (l is ConnectionFailureState) {
+        return ConnectionFailureState(
+            error: ErrorHandler().mapFailureToMessage(l) ?? "");
+      } else if (l is ServerFailure) {
+        return ServerFailureState(
+            error: ErrorHandler().mapFailureToMessage(l) ?? "");
+      } else {
+        return SearchHomeDataFailureState(
+            message: ErrorHandler().mapFailureToMessage(l));
+      }
+    }, (r) {
+      return SearchHomeDataSuccessState(response: r);
     }));
   }
 }

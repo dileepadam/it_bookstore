@@ -18,4 +18,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
     throw UnimplementedError();
   }
+
+  @override
+  Future<BaseResponse> searchBooks(String bookName) async {
+    try {
+      final response = await apiHelper?.get("search/$bookName");
+      return BaseResponse.fromJson(response);
+    } on Exception {
+      rethrow;
+    }
+  }
 }

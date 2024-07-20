@@ -4,4 +4,6 @@ import 'package:it_bookstore/features/data/models/common/base_response.dart';
 
 abstract class Repository {
   Future<Either<Failure, BaseResponse>> getNewBooks();
+
+  Future<Either<Failure, BaseResponse>> searchBooks(String bookName);
 }

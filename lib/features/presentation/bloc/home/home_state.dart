@@ -16,3 +16,15 @@ class GetHomeDataFailureState extends HomeState {
 
   GetHomeDataFailureState({this.message});
 }
+
+class SearchHomeDataSuccessState extends HomeState {
+  final BaseResponse? response;
+
+  SearchHomeDataSuccessState({this.response});
+}
+
+class SearchHomeDataFailureState extends HomeState {
+  String? message;
+
+  SearchHomeDataFailureState({this.message});
+}

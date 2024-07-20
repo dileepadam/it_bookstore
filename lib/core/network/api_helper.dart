@@ -32,7 +32,7 @@ class APIHelper {
       ..interceptors.add(logInterceptor)
       ..httpClientAdapter = Http2Adapter(
           ConnectionManager(
-            idleTimeout: Duration(seconds: 15),
+            idleTimeout: const Duration(seconds: 15),
           ), fallbackAdapter: IOHttpClientAdapter(
         createHttpClient: () {
           final client = HttpClient();
@@ -44,7 +44,7 @@ class APIHelper {
   Future<dynamic> get(String url) async {
     try {
       final response = await dio!.get(NetworkConfig.getNetworkUrl() + url);
-      log("[API Helper - GET] response ${response}");
+      log("[API Helper - GET] response $response");
       return response.data;
     } on DioException catch (e) {
       log('[API Helper - GET] Connection Exception => ${e.message}');

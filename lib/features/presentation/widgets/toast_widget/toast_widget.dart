@@ -95,11 +95,14 @@ String getTitle(ToastStatus toastStatus, BuildContext context) {
 Color getprimaryColor(ToastStatus toastStatus, BuildContext context) {
   switch (toastStatus) {
     case ToastStatus.SUCCESS:
-      return colors(context).positiveColor50!;
+      // return colors(context).positiveColor50!;
+      return Colors.lightBlueAccent;
     case ToastStatus.ERROR:
-      return colors(context).negativeColor50!;
+      // return colors(context).negativeColor50!;
+      return Colors.lightBlueAccent;
     case ToastStatus.FAIL:
-      return colors(context).negativeColor50!;
+      // return colors(context).negativeColor50!;
+      return Colors.lightBlueAccent;
   }
 }
 
@@ -108,19 +111,19 @@ Widget getIcon(ToastStatus toastStatus, BuildContext context) {
     case ToastStatus.SUCCESS:
       return ToastIcon(
           icon: PhosphorIcons.check(PhosphorIconsStyle.bold),
-          color: colors(context).positiveColor!,
+          color: Colors.lightBlueAccent,
           context: context,
           toastStatus: toastStatus);
     case ToastStatus.FAIL:
       return ToastIcon(
           icon: PhosphorIcons.warning(PhosphorIconsStyle.bold),
-          color: colors(context).negativeColor!,
+          color: Colors.lightBlueAccent,
           context: context,
           toastStatus: toastStatus);
     case ToastStatus.ERROR:
       return ToastIcon(
           icon: PhosphorIcons.warning(PhosphorIconsStyle.bold),
-          color: colors(context).negativeColor!,
+          color: Colors.lightBlueAccent,
           context: context,
           toastStatus: toastStatus);
   }
@@ -145,8 +148,8 @@ Widget ToastIcon({
           child: PhosphorIcon(
         icon,
         color: toastStatus == ToastStatus.ERROR
-            ? colors(context).blackColor
-            : colors(context).whiteColor,
+            ? Colors.black87
+            : Colors.white,
         size: 19.64,
       )),
     ),
