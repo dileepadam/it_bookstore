@@ -19,7 +19,7 @@ class _ItBookstoreAppState extends State<ItBookstoreApp> {
       onGenerateRoute: Routes.generateRoutes,
       builder: (context, child) => MediaQuery(
         data: MediaQuery.of(context)
-            .copyWith(textScaler: const TextScaler.linear(1)),
+            .copyWith(textScaler: TextScaler.linear(1)),
         child: child!,
       ),
     );

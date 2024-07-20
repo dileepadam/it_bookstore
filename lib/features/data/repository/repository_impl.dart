@@ -3,6 +3,7 @@ import 'package:it_bookstore/error/exceptions.dart';
 import 'package:it_bookstore/error/failures.dart';
 import 'package:it_bookstore/features/data/datasources/remote_data_source.dart';
 import 'package:it_bookstore/features/data/models/common/base_response.dart';
+import 'package:it_bookstore/features/data/models/responses/book_detail_response.dart';
 import 'package:it_bookstore/features/domain/repository/repository.dart';
 
 import '../../../core/network/network_info.dart';
@@ -32,6 +33,20 @@ class RepositoryImpl implements Repository {
     if (await networkInfo!.isConnected) {
       try {
         final parm = await remoteDataSource!.searchBooks(bookName);
+        return Right(parm);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.errorResponseModel));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookDetailResponse>> getBookDetails(String isbn13) async{
+    if (await networkInfo!.isConnected) {
+      try {
+        final parm = await remoteDataSource!.getBookDetails(isbn13);
         return Right(parm);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.errorResponseModel));

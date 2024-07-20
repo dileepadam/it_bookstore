@@ -26,6 +26,7 @@ class HomePageBloc extends BaseBloc<HomeEvent, BaseState<HomeState>> {
 
   Future<void> _handleGetHomeDataEvent(
       GetHomeDataRequestEvent event, Emitter<BaseState<HomeState>> emit) async {
+    emit(APILoadingState());
     final result = await homePageDataUsecase(const Params());
 
     emit(result.fold((l) {

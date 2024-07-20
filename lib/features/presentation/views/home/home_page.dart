@@ -10,8 +10,9 @@ import 'package:it_bookstore/features/presentation/bloc/home/home_event.dart';
 import 'package:it_bookstore/features/presentation/bloc/home/home_state.dart';
 import 'package:it_bookstore/features/presentation/views/base_view.dart';
 import 'package:it_bookstore/features/presentation/views/home/listItem/list_item.dart';
-import 'package:it_bookstore/features/presentation/widgets/mainAppBar.dart';
+import 'package:it_bookstore/features/presentation/widgets/main_app_bar.dart';
 import 'package:it_bookstore/features/presentation/widgets/toast_widget/toast_widget.dart';
+import 'package:it_bookstore/utils/navigation_routes.dart';
 
 import '../../../../utils/enums.dart';
 
@@ -79,6 +80,11 @@ class _HomePageViewState extends BaseViewState<HomePage> {
                       title: books[index].title,
                       author: books[index].subtitle,
                       url: books[index].image,
+                      onTapFavorite: (bool) {},
+                      onTapItem: () {
+                        Navigator.pushNamed(context, Routes.kBookDetail,
+                            arguments: books[index].isbn13);
+                      },
                     );
                   },
                 )

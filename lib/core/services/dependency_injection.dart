@@ -7,8 +7,10 @@ import 'package:it_bookstore/features/data/datasources/remote_data_source_impl.d
 import 'package:it_bookstore/features/data/repository/repository_impl.dart';
 import 'package:it_bookstore/features/domain/repository/repository.dart';
 import 'package:it_bookstore/features/domain/usecases/home/get_home_page_data.dart';
+import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail_bloc.dart';
 import 'package:it_bookstore/features/presentation/bloc/home/home_bloc.dart';
 
+import '../../features/domain/usecases/book_details/get_book_details.dart';
 import '../../features/domain/usecases/home/search_books_home.dart';
 import '../network/api_helper.dart';
 
@@ -34,12 +36,19 @@ Future<void> setLocator() async {
   //UseCases
   injection
       .registerLazySingleton(() => GetHomePageData(repository: injection()));
+
   injection
       .registerLazySingleton(() => SearchHomePageData(repository: injection()));
 
+  injection
+      .registerLazySingleton(() => GetBookDetails(repository: injection()));
+
   //bloc
-  injection.registerLazySingleton(() => HomePageBloc(
+  injection.registerFactory(() => HomePageBloc(
       networkInfo: injection(),
       homePageDataUsecase: injection(),
       searchHomePageDataUseCase: injection()));
+
+  injection.registerFactory(() =>
+      BookDetailsBloc(networkInfo: injection(), getBookDetails: injection()));
 }

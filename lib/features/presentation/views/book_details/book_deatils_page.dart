@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:it_bookstore/core/services/dependency_injection.dart';
+import 'package:it_bookstore/features/data/models/responses/book_detail_response.dart';
+import 'package:it_bookstore/features/presentation/bloc/base_bloc.dart';
+import 'package:it_bookstore/features/presentation/bloc/base_event.dart';
+import 'package:it_bookstore/features/presentation/bloc/base_state.dart';
+import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail_bloc.dart';
+import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail_state.dart';
+import 'package:it_bookstore/features/presentation/bloc/book_details/book_details_event.dart';
+import 'package:it_bookstore/features/presentation/views/base_view.dart';
+
+import '../../../../utils/enums.dart';
+import '../../widgets/secondar_app_bar.dart';
+import '../../widgets/toast_widget/toast_widget.dart';
+import 'book_deatil_widget/book_deatils_widget.dart';
+
+class BookDetailsPage extends BaseView {
+  final String? isbn13;
+
+  const BookDetailsPage({super.key, this.isbn13});
+
+  @override
+  _BookDetailsViewState createState() => _BookDetailsViewState();
+}
+
+class _BookDetailsViewState extends BaseViewState<BookDetailsPage> {
+  late BookDetailsBloc _bookDetailsBloc;
+
+  BookDetailResponse? _bookDetailResponse;
+
+  @override
+  void initState() {
+    super.initState();
+    _bookDetailsBloc = injection<BookDetailsBloc>();
+    _bookDetailsBloc.add(GetBookDetailsRequestEvent(isbn13: widget.isbn13));
+  }
+
+  @override
+  Widget buildView(BuildContext context) {
+    return BlocProvider<BookDetailsBloc>.value(
+      value: _bookDetailsBloc,
+      child: Scaffold(
+        appBar: const SecondaryAppBar(
+          title: "Book Details",
+        ),
+        body: BlocListener<BookDetailsBloc, BaseState<BookDetailsState>>(
+          listener: (context, state) {
+            if (state is GetBookDetailsSuccessState) {
+              setState(() {
+                _bookDetailResponse = state.bookDetailResponse;
+              });
+            } else if (state is GetBookDetailsFailureState) {
+              ToastUtils.showCustomToast(
+                  context, state.message!, ToastStatus.FAIL);
+            }
+          },
+          child: _bookDetailResponse != null
+              ? BookDetailsWidget(
+              imageUrl: _bookDetailResponse!.image,
+              title: _bookDetailResponse!.title,
+              subtitle: _bookDetailResponse!.authors,
+              price: _bookDetailResponse!.price,
+              rating: double.parse(_bookDetailResponse!.rating),
+              description: _bookDetailResponse!.desc)
+              : const Center(
+            child: Text("No Data"),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  @override
+  BaseBloc<BaseEvent, BaseState> getBloc() {
+    return _bookDetailsBloc;
+  }
+}
+
