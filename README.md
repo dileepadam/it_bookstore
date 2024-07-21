@@ -41,12 +41,17 @@ To run this project locally, follow these steps:
     cd it_bookstore
     ```
 
-3. **Install dependencies**:
+3. **Checkout to the master branch**:
+    ```sh
+    git checkout master
+    ```
+
+4. **Install dependencies**:
     ```sh
     flutter pub get
     ```
 
-4. **Run the application**:
+5. **Run the application**:
     ```sh
     flutter run
     ```
@@ -55,15 +60,6 @@ To run this project locally, follow these steps:
 1. **Search for Books**: Use the search functionality to find books by their title.
 2. **Add to Favorites**: Click on the favorite icon to add books to your favorites list.
 3. **View Details**: Select a book to view its detailed information and description.
-
-## Contributing
-If you would like to contribute to this project, please follow these steps:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Make your changes
-4. Create Pull Request
-5. I'll Check and marge in to master branch
 
 
 ## Contact
