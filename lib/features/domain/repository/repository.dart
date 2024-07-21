@@ -9,4 +9,8 @@ abstract class Repository {
   Future<Either<Failure, BaseResponse>> searchBooks(String bookName);
 
   Future<Either<Failure, BookDetailResponse>> getBookDetails(String isbn13);
+
+  Future<Either<Failure, List<Book>>> getFavoriteBooks();
+
+  Future<Either<Failure, bool>> storeFavoriteBooks(List<Book> books);
 }

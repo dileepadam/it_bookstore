@@ -25,12 +25,18 @@ class _HomePageViewState extends BaseViewState<HomePage> {
   final _homePageBloc = injection<HomePageBloc>();
   BaseResponse? baseResponse;
   List<Book> books = [];
+  List<Book> favoriteBooks = [];
+  bool isFavoriteAvailable = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _homePageBloc.add(GetHomeDataRequestEvent());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -38,7 +44,9 @@ class _HomePageViewState extends BaseViewState<HomePage> {
     return Scaffold(
       appBar: MainAppBar(
         hintText: "Search",
-        onTapFavourite: () {},
+        onTapFavourite: () {
+          Navigator.pushNamed(context, Routes.kFavouriteBook);
+        },
         onChange: (value) {
           searchBook(value);
         },
@@ -55,6 +63,8 @@ class _HomePageViewState extends BaseViewState<HomePage> {
                   books.add(element);
                 });
               }
+              ;
+              _homePageBloc.add(GetFavoriteBooksEvent());
               setState(() {});
             } else if (state is GetHomeDataFailureState) {
               ToastUtils.showCustomToast(
@@ -70,17 +80,40 @@ class _HomePageViewState extends BaseViewState<HomePage> {
             } else if (state is SearchHomeDataFailureState) {
               ToastUtils.showCustomToast(
                   context, state.message!, ToastStatus.FAIL);
-            }
+            } else if (state is GetFavoriteBooksSuccessState) {
+              favoriteBooks.clear();
+              List<Book> temp = state.books!;
+              if (temp.isNotEmpty) {
+                favoriteBooks.addAll(temp);
+                isFavoriteAvailable = false;
+              }
+              setState(() {});
+            } else if (state is GetHomeDataFailureState) {
+              isFavoriteAvailable = false;
+            } else if (state is StoreFavoriteBooksSuccessState) {
+              _homePageBloc.add(GetFavoriteBooksEvent());
+            } else if (state is StoreFavoriteBooksFailureState) {}
           },
           child: books.isNotEmpty
               ? ListView.builder(
                   itemCount: books.length,
                   itemBuilder: (context, index) {
+                    bool isFavorite = isOnFavorite(books[index].isbn13);
                     return HomePageListItem(
                       title: books[index].title,
                       author: books[index].subtitle,
                       url: books[index].image,
-                      onTapFavorite: (bool) {},
+                      isFavorite: isFavorite,
+                      onTapFavorite: (b) {
+                        if (b && !isFavorite) {
+                          favoriteBooks.add(books[index]);
+                        } else if (!b && isFavorite) {
+                          favoriteBooks.removeWhere((element) =>
+                              element.isbn13 == books[index].isbn13);
+                        }
+                        _homePageBloc
+                            .add(StoreFavoriteBookEvent(books: favoriteBooks));
+                      },
                       onTapItem: () {
                         Navigator.pushNamed(context, Routes.kBookDetail,
                             arguments: books[index].isbn13);
@@ -105,6 +138,17 @@ class _HomePageViewState extends BaseViewState<HomePage> {
         _homePageBloc.add(SearchHomeDataRequestEvent(bookName: bookName));
       });
     }
+  }
+
+  bool isOnFavorite(String isbn) {
+    bool b = false;
+    for (var element in favoriteBooks) {
+      if (element.isbn13 == isbn) {
+        b = true;
+        break;
+      }
+    }
+    return b;
   }
 
   @override

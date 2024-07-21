@@ -55,6 +55,8 @@ dev_dependencies:
 
   flutter_rating_bar: ^4.0.1
 
+  flutter_secure_storage: ^9.0.0
+
   #PhosperIcons
   phosphor_flutter: ^2.1.0
 

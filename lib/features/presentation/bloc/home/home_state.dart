@@ -28,3 +28,27 @@ class SearchHomeDataFailureState extends HomeState {
 
   SearchHomeDataFailureState({this.message});
 }
+
+class GetFavoriteBooksSuccessState extends HomeState {
+  final List<Book>? books;
+
+  GetFavoriteBooksSuccessState({this.books});
+}
+
+class GetFavoriteBooksFailureState extends HomeState {
+  final String? message;
+
+  GetFavoriteBooksFailureState({this.message});
+}
+
+class StoreFavoriteBooksSuccessState extends HomeState {
+  final bool? isSuccess;
+
+  StoreFavoriteBooksSuccessState({this.isSuccess});
+}
+
+class StoreFavoriteBooksFailureState extends HomeState {
+  final String? message;
+
+  StoreFavoriteBooksFailureState({this.message});
+}
