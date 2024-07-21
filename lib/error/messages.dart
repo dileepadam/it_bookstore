@@ -16,9 +16,9 @@ class ErrorHandler {
 
   String? mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ConnectionFailure _:
+      case ConnectionFailure:
         return 'Unable to connect. Please check your internet connection.';
-      case ServerFailure _:
+      case ServerFailure:
         return (failure as ServerFailure).errorResponse.errorDescription;
       default:
         return 'Something went wrong.';

@@ -29,7 +29,6 @@ class ShowDialog {
             child: ListBody(
               children: <Widget>[
                 Text(descriptionOne ?? ""),
-                Text(descriptionTwo ?? ""),
               ],
             ),
           ),

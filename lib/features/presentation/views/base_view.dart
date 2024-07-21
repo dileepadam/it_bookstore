@@ -45,7 +45,7 @@ abstract class BaseViewState<Page extends BaseView> extends State<Page> {
               ShowDialog(
                   context: context,
                   title: "Oops!",
-                  descriptionOne: "Something Went Wrong",
+                  descriptionOne: state.error,
                   actionButtonOne: TextButton(
                     child: const Text("Cancel"),
                     onPressed: () {
