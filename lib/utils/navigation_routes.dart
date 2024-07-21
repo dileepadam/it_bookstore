@@ -13,7 +13,6 @@ class Routes {
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     final isIOS = Platform.isIOS ? true : false;
-    final disableIOS = false;
     switch (settings.name) {
       case Routes.kHomeView:
         return PageTransition(

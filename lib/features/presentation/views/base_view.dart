@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:it_bookstore/features/presentation/bloc/base_bloc.dart';
+import 'package:it_bookstore/features/presentation/widgets/show_dialog.dart';
 import 'package:it_bookstore/features/presentation/widgets/toast_widget/toast_widget.dart';
 import 'package:it_bookstore/flavours/flavor_banner.dart';
 import 'package:it_bookstore/utils/enums.dart';
@@ -41,8 +42,19 @@ abstract class BaseViewState<Page extends BaseView> extends State<Page> {
           } else {
             hideProgressBar();
             if (state is APIFailureState) {
-              ToastUtils.showCustomToast(
-                  context, "Something Went Wrong", ToastStatus.FAIL);
+              ShowDialog(
+                  context: context,
+                  title: "Oops!",
+                  descriptionOne: "Something Went Wrong",
+                  actionButtonOne: TextButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ));
+
+              // ToastUtils.showCustomToast(
+              //     context, "Something Went Wrong", ToastStatus.FAIL);
             }
           }
         },
@@ -73,7 +85,9 @@ abstract class BaseViewState<Page extends BaseView> extends State<Page> {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: Container(
                         alignment: FractionalOffset.center,
-                        child: const Text("Loading...")),
+                        child: const CircularProgressIndicator(
+                          color: Colors.lightBlueAccent,
+                        )),
                   ),
                 ),
               ),

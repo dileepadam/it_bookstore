@@ -10,9 +10,8 @@ import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail
 import 'package:it_bookstore/features/presentation/bloc/book_details/book_details_event.dart';
 import 'package:it_bookstore/features/presentation/views/base_view.dart';
 
-import '../../../../utils/enums.dart';
 import '../../widgets/secondar_app_bar.dart';
-import '../../widgets/toast_widget/toast_widget.dart';
+import '../../widgets/show_dialog.dart';
 import 'book_deatil_widget/book_deatils_widget.dart';
 
 class BookDetailsPage extends BaseView {
@@ -51,30 +50,62 @@ class _BookDetailsViewState extends BaseViewState<BookDetailsPage> {
                 _bookDetailResponse = state.bookDetailResponse;
               });
             } else if (state is GetBookDetailsFailureState) {
-              ToastUtils.showCustomToast(
-                  context, state.message!, ToastStatus.FAIL);
+              ShowDialog(
+                  context: context,
+                  title: "Oops!",
+                  descriptionOne: state.message,
+                  actionButtonOne: TextButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ));
             }
           },
           child: _bookDetailResponse != null
               ? BookDetailsWidget(
-              imageUrl: _bookDetailResponse!.image,
-              title: _bookDetailResponse!.title,
-              subtitle: _bookDetailResponse!.authors,
-              price: _bookDetailResponse!.price,
-              rating: double.parse(_bookDetailResponse!.rating),
-              description: _bookDetailResponse!.desc)
-              : const Center(
-            child: Text("No Data"),
-          ),
+                  imageUrl: _bookDetailResponse!.image,
+                  title: _bookDetailResponse!.title,
+                  subtitle: _bookDetailResponse!.authors,
+                  price: _bookDetailResponse!.price,
+                  rating: double.parse(_bookDetailResponse!.rating),
+                  description: _bookDetailResponse!.desc)
+              : const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.error_outline_rounded,
+                          size: 100,
+                        ),
+                        Text(
+                          "No Book Details Found",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "We couldn't find books details at the moment. \n"
+                          "Please try again later or check your internet connection.",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
         ),
       ),
     );
   }
-
 
   @override
   BaseBloc<BaseEvent, BaseState> getBloc() {
     return _bookDetailsBloc;
   }
 }
-

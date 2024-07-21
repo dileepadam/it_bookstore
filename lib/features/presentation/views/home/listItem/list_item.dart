@@ -57,7 +57,9 @@ class _HomePageListItemState extends State<HomePageListItem> {
                     child: SizedBox(
                       height: 20,
                       width: 20,
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          color: Colors.lightBlueAccent
+                      ),
                     ),
                   ),
                   errorWidget: (context, url, error) =>
@@ -78,7 +80,7 @@ class _HomePageListItemState extends State<HomePageListItem> {
                 },
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
             )
           ],

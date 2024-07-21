@@ -79,8 +79,34 @@ class _FavoritePageViewState extends BaseViewState<FavoriteBookPage> {
                       );
                     },
                   )
-                : const Center(
-                    child: Text("Favorite Books is Empty"),
+                : const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline_rounded,
+                            size: 100,
+                          ),
+                          Text(
+                            "No Books Found",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            "We couldn't find any books at the moment. \n"
+                            "Please add books if you haven't added any to your favorites yet.",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
           )),
     );

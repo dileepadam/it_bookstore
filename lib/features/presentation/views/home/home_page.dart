@@ -15,6 +15,7 @@ import 'package:it_bookstore/features/presentation/widgets/toast_widget/toast_wi
 import 'package:it_bookstore/utils/navigation_routes.dart';
 
 import '../../../../utils/enums.dart';
+import '../../widgets/show_dialog.dart';
 
 class HomePage extends BaseView {
   @override
@@ -67,8 +68,16 @@ class _HomePageViewState extends BaseViewState<HomePage> {
               _homePageBloc.add(GetFavoriteBooksEvent());
               setState(() {});
             } else if (state is GetHomeDataFailureState) {
-              ToastUtils.showCustomToast(
-                  context, state.message!, ToastStatus.FAIL);
+              ShowDialog(
+                  context: context,
+                  title: "Oops!",
+                  descriptionOne: state.message,
+                  actionButtonOne: TextButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ));
             } else if (state is SearchHomeDataSuccessState) {
               baseResponse = state.response!;
               if (baseResponse != null) {
@@ -121,9 +130,33 @@ class _HomePageViewState extends BaseViewState<HomePage> {
                     );
                   },
                 )
-              : const Center(
-                  child: Text("Empty"),
-                ),
+              : const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.error_outline_rounded,
+                          size: 100,
+                        ),
+                        Text(
+                          "No Books Found",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16,),
+                        Text(
+                          "We couldn't find any books at the moment. \n"
+                              "Please try again later or check your internet connection.",
+                            textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+              ),
         ),
       ),
     );

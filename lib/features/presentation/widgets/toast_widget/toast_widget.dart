@@ -1,83 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/theme/theme_data.dart';
 import '../../../../utils/enums.dart';
-import 'toast_animation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-/*
-* Usage:
-*ToastUtils.showCustomToast(context,"Your text.");
-* */
+
 class ToastUtils {
   static Timer? toastTimer;
 
   static void showCustomToast(
       BuildContext context, String message, ToastStatus status) {
-    final OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        top: 56,
-        left: 20,
-        right: 20,
-        child: SlideInToastMessageAnimation(IntrinsicHeight(
-          child: Material(
-            borderRadius: BorderRadius.circular(8),
-            elevation: 0.0,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: getprimaryColor(status, context),
-                boxShadow: [],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        getIcon(status, context),
-                        12.horizontalSpace,
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(getTitle(status, context),
-                                    style: size16weight700.copyWith(
-                                        color: colors(context).blackColor)),
-                                Text(
-                                  message,
-                                  style: size14weight400.copyWith(
-                                      color: colors(context).greyColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        )),
-      ),
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: getprimaryColor(status, context),
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
-
-    Overlay.of(context).insert(overlayEntry);
-
-    /// Two seconds later, remove Toast
-    Future.delayed(const Duration(seconds: 4)).then((value) {
-      overlayEntry.remove();
-    });
   }
 }
 
