@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePageListItem extends StatefulWidget {
   final String? url;
@@ -33,13 +34,13 @@ class _HomePageListItemState extends State<HomePageListItem> {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
         child: Column(
           children: [
             ListTile(
               leading: Container(
-                width: 50,
-                height: 60,
+                width: 50.w,
+                height: 60.h,
                 color: Colors.grey[300],
                 child: CachedNetworkImage(
                   imageUrl: widget.url ?? "",
@@ -53,13 +54,12 @@ class _HomePageListItemState extends State<HomePageListItem> {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) => const Center(
+                  placeholder: (context, url) => Center(
                     child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                          color: Colors.lightBlueAccent
-                      ),
+                      height: 20.h,
+                      width: 20.h,
+                      child: const CircularProgressIndicator(
+                          color: Colors.lightBlueAccent),
                     ),
                   ),
                   errorWidget: (context, url, error) =>

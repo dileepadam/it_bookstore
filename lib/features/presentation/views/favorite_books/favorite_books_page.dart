@@ -13,6 +13,7 @@ import '../../../../utils/navigation_routes.dart';
 import '../../../data/models/common/base_response.dart';
 import '../base_view.dart';
 import '../home/listItem/list_item.dart';
+import 'package:sizer/sizer.dart';
 
 class FavoriteBookPage extends BaseView {
   @override

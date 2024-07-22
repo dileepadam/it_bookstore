@@ -62,6 +62,8 @@ dev_dependencies:
   #PhosperIcons
   phosphor_flutter: ^2.1.0
 
+  sizer: ^2.0.15
+
 flutter:
 
 

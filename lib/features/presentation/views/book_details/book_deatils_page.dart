@@ -9,6 +9,7 @@ import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail
 import 'package:it_bookstore/features/presentation/bloc/book_details/book_detail_state.dart';
 import 'package:it_bookstore/features/presentation/bloc/book_details/book_details_event.dart';
 import 'package:it_bookstore/features/presentation/views/base_view.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../widgets/secondar_app_bar.dart';
 import '../../widgets/show_dialog.dart';
@@ -70,8 +71,8 @@ class _BookDetailsViewState extends BaseViewState<BookDetailsPage> {
                   price: _bookDetailResponse!.price,
                   rating: double.parse(_bookDetailResponse!.rating),
                   description: _bookDetailResponse!.desc)
-              : const Padding(
-                  padding: EdgeInsets.all(16.0),
+              : Padding(
+                  padding: EdgeInsets.all(16.0.h),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,18 +80,18 @@ class _BookDetailsViewState extends BaseViewState<BookDetailsPage> {
                       children: [
                         Icon(
                           Icons.error_outline_rounded,
-                          size: 100,
+                          size: 100.h,
                         ),
-                        Text(
+                        const Text(
                           "No Book Details Found",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(
-                          height: 16,
+                          height: 16.h,
                         ),
-                        Text(
+                        const Text(
                           "We couldn't find books details at the moment. \n"
                           "Please try again later or check your internet connection.",
                           textAlign: TextAlign.center,

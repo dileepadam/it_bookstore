@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../../utils/enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sizer/sizer.dart';
 
 
 class ToastUtils {
@@ -86,14 +87,14 @@ Widget ToastIcon({
         shape: BoxShape.circle,
         color: color,
       ),
-      padding: EdgeInsets.all(8.18),
+      padding: EdgeInsets.all(8.18.h),
       child: Center(
           child: PhosphorIcon(
         icon,
         color: toastStatus == ToastStatus.ERROR
             ? Colors.black87
             : Colors.white,
-        size: 19.64,
+        size: 19.64.h,
       )),
     ),
   );

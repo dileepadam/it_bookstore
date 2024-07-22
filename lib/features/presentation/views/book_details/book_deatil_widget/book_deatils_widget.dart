@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:sizer/sizer.dart';
 
 class BookDetailsWidget extends StatelessWidget {
   final String imageUrl;
@@ -24,7 +25,7 @@ class BookDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,7 +38,7 @@ class BookDetailsWidget extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -47,8 +48,8 @@ class BookDetailsWidget extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 24,
+                        style: TextStyle(
+                          fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -57,13 +58,13 @@ class BookDetailsWidget extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: subtitle,
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             color: Colors.grey,
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       RatingBarIndicator(
                         rating: rating,
                         itemCount: 5,
@@ -77,26 +78,26 @@ class BookDetailsWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 8.h),
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.grey[200],
                   child: Text(
                     price,
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16.h),
             SingleChildScrollView(
               child: RichText(
                 text: TextSpan(
                   text: description,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black),
                 ),
               ),
             ),

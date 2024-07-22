@@ -13,6 +13,7 @@ import 'package:it_bookstore/features/presentation/views/home/listItem/list_item
 import 'package:it_bookstore/features/presentation/widgets/main_app_bar.dart';
 import 'package:it_bookstore/features/presentation/widgets/toast_widget/toast_widget.dart';
 import 'package:it_bookstore/utils/navigation_routes.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../utils/enums.dart';
 import '../../widgets/show_dialog.dart';
@@ -130,33 +131,35 @@ class _HomePageViewState extends BaseViewState<HomePage> {
                     );
                   },
                 )
-              : const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Center(
+              : Padding(
+                  padding: EdgeInsets.all(16.0.h),
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.error_outline_rounded,
-                          size: 100,
+                          size: 100.h,
                         ),
-                        Text(
+                        const Text(
                           "No Books Found",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16,),
-                        Text(
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        const Text(
                           "We couldn't find any books at the moment. \n"
-                              "Please try again later or check your internet connection.",
-                            textAlign: TextAlign.center,
+                          "Please try again later or check your internet connection.",
+                          textAlign: TextAlign.center,
                         )
                       ],
                     ),
                   ),
-              ),
+                ),
         ),
       ),
     );

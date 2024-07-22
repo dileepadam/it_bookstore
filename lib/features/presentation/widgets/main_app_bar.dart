@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../utils/appValidator.dart';
+import 'package:sizer/sizer.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? onTapFavourite;
@@ -65,7 +66,7 @@ class _MainAppBarState extends State<MainAppBar> {
         decoration: InputDecoration(
           hintText: widget.hintText,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.h),
             borderSide: BorderSide.none,
           ),
           filled: true,
